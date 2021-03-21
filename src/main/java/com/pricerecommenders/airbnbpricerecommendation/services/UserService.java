@@ -15,4 +15,9 @@ public class UserService extends BaseService<User> {
         super("User", repository);
         this.repo = repo;
     }
+
+    public User findByApiToken(String apiToken) {
+
+        return repo.findByApiToken(apiToken);
+    }
 }

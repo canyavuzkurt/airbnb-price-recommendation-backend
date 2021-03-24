@@ -55,14 +55,14 @@ public class RecommendationController extends BaseController<Recommendation>{
         return deleteEntity(id);
     }
 
-    @GetMapping("{/my-history}")
+    @GetMapping("/my-history")
     public List<Recommendation> getHistory() {
 
         User user = userService.getCurrentUser();
         return user.getRecommendations().stream().sorted(Comparator.comparing(Recommendation::getCreatedAt).reversed()).collect(Collectors.toList());
     }
 
-    @PostMapping("{/add-to-history}")
+    @PostMapping("/add-to-history")
     public MessageResponse addToHistory(@RequestBody Recommendation recommendation) {
 
         User user = userService.getCurrentUser();

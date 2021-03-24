@@ -1,6 +1,5 @@
 package com.pricerecommenders.airbnbpricerecommendation.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +9,8 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity(name = "collections")
-@Getter @Setter
+@Getter
+@Setter
 public class Collection extends BaseEntity {
 
     @Column(name = "name")
@@ -24,10 +24,6 @@ public class Collection extends BaseEntity {
 
     @ManyToMany
     @NotEmpty
-    @JoinTable(
-            name = "collection_recommendations",
-            joinColumns = @JoinColumn(name = "collection_id"),
-            inverseJoinColumns = @JoinColumn(name = "recommendation_id")
-    )
+    @JoinTable(name = "collection_recommendations", joinColumns = @JoinColumn(name = "collection_id"), inverseJoinColumns = @JoinColumn(name = "recommendation_id"))
     private List<Recommendation> recommendations;
 }

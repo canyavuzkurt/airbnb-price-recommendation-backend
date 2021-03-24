@@ -1,7 +1,5 @@
 package com.pricerecommenders.airbnbpricerecommendation.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,13 +10,13 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.List;
 import java.util.Set;
 
 @Entity(name = "users")
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
-public class User extends BaseEntity{
+public class User extends BaseEntity {
 
     @Column(name = "f_name")
     @NotBlank
@@ -33,10 +31,8 @@ public class User extends BaseEntity{
     private String apiToken;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-    @JsonManagedReference
     private Set<Recommendation> recommendations;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private Set<Collection> collections;
 

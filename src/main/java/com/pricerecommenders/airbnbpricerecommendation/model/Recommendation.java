@@ -1,6 +1,5 @@
 package com.pricerecommenders.airbnbpricerecommendation.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,8 +8,9 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity(name = "recommendations")
-@Getter @Setter
-public class Recommendation extends BaseEntity{
+@Getter
+@Setter
+public class Recommendation extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id")

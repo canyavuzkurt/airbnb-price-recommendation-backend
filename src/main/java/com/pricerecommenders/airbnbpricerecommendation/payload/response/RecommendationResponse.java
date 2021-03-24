@@ -15,6 +15,8 @@ import java.util.List;
 @AllArgsConstructor
 public class RecommendationResponse {
 
+    private Long id;
+
     private String neighbourhood;
 
     private Double latitude;
@@ -41,6 +43,7 @@ public class RecommendationResponse {
 
     public RecommendationResponse(Recommendation rec) {
 
+        setId(rec.getId());
         setNeighbourhood(rec.getNeighbourhood());
         setLatitude(rec.getLatitude());
         setLongitude(rec.getLongitude());

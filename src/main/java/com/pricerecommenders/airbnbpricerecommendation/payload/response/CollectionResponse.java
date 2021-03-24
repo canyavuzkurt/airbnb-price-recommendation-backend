@@ -17,11 +17,13 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CollectionResponse {
 
+    private Long id;
     private String name;
     private List<RecommendationResponse> recommendations;
 
     public CollectionResponse(Collection collection) {
 
+        setId(collection.getId());
         setName(collection.getName());
         setRecommendations(collection.getRecommendations().stream().sorted(Comparator.comparing(
                 Recommendation::getCreatedAt).reversed()).map(RecommendationResponse::new).collect(Collectors.toList()));

@@ -1,5 +1,6 @@
 package com.pricerecommenders.airbnbpricerecommendation.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,6 +24,7 @@ public class Collection extends BaseEntity {
 
     @ManyToMany
     @NotEmpty
+    @JsonManagedReference
     @JoinTable(
             name = "collection_recommendations",
             joinColumns = @JoinColumn(name = "collection_id"),

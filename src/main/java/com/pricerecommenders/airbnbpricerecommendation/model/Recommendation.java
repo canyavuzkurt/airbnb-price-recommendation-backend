@@ -1,5 +1,6 @@
 package com.pricerecommenders.airbnbpricerecommendation.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,6 +16,7 @@ public class Recommendation extends BaseEntity{
     private User user;
 
     @ManyToMany(mappedBy = "recommendations")
+    @JsonBackReference
     private List<Collection> collections;
 
     private String neighbourhood;

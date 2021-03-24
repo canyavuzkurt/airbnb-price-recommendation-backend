@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity(name = "users")
@@ -26,6 +27,7 @@ public class User extends BaseEntity{
     private String lName;
 
     @Column(name = "api_token")
+    @Size(max = 1500)
     private String apiToken;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)

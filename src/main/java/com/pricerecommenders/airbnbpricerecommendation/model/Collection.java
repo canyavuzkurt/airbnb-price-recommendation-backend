@@ -21,7 +21,7 @@ public class Collection extends BaseEntity {
     @NotNull
     private User user;
 
-    @ManyToMany(mappedBy = "collections")
+    @ManyToMany
     @NotEmpty
     @JoinTable(
             name = "collection_recommendations",

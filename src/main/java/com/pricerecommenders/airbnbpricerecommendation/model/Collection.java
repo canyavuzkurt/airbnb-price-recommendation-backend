@@ -24,7 +24,6 @@ public class Collection extends BaseEntity {
 
     @ManyToMany
     @NotEmpty
-    @JsonManagedReference
     @JoinTable(
             name = "collection_recommendations",
             joinColumns = @JoinColumn(name = "collection_id"),

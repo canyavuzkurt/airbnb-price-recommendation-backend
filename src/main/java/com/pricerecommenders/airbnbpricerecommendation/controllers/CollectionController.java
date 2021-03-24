@@ -1,6 +1,8 @@
 package com.pricerecommenders.airbnbpricerecommendation.controllers;
 
 import com.pricerecommenders.airbnbpricerecommendation.model.Collection;
+import com.pricerecommenders.airbnbpricerecommendation.payload.request.AddCollectionRequest;
+import com.pricerecommenders.airbnbpricerecommendation.payload.request.AddToCollectionRequest;
 import com.pricerecommenders.airbnbpricerecommendation.payload.response.MessageResponse;
 import com.pricerecommenders.airbnbpricerecommendation.services.CollectionService;
 import io.swagger.annotations.Api;
@@ -29,9 +31,10 @@ public class CollectionController extends BaseController<Collection>{
     }
 
     @PostMapping("")
-    public MessageResponse addCollection(@Valid @RequestBody Collection col) {
+    public MessageResponse addCollection(@Valid @RequestBody AddCollectionRequest request) {
 
-        return addEntity(col);
+        colService.addCollection(request);
+        return new MessageResponse("Collection added successfully.");
     }
 
     @PutMapping("")
@@ -44,5 +47,12 @@ public class CollectionController extends BaseController<Collection>{
     public MessageResponse deleteCollection(@PathVariable("id") Long id) {
 
         return deleteEntity(id);
+    }
+
+    @PostMapping("/add/")
+    public MessageResponse addToCollection(@Valid @RequestBody AddToCollectionRequest request) {
+
+        colService.addToCollection(request);
+        return new MessageResponse("Added to collection successfully.");
     }
 }

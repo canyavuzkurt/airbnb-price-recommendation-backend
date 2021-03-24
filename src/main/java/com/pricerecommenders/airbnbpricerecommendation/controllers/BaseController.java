@@ -4,6 +4,8 @@ import com.pricerecommenders.airbnbpricerecommendation.model.BaseEntity;
 import com.pricerecommenders.airbnbpricerecommendation.payload.response.MessageResponse;
 import com.pricerecommenders.airbnbpricerecommendation.services.BaseService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @AllArgsConstructor
 public class BaseController<T extends BaseEntity> {

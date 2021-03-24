@@ -12,12 +12,21 @@ import java.util.List;
 @Getter @Setter
 public class Collection extends BaseEntity {
 
+    @Column(name = "name")
+    @NotEmpty
+    private String name;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     @NotNull
     private User user;
 
-    @OneToMany(mappedBy = "collection", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "collections")
     @NotEmpty
+    @JoinTable(
+            name = "collection_recommendations",
+            joinColumns = @JoinColumn(name = "collection_id"),
+            inverseJoinColumns = @JoinColumn(name = "recommendation_id")
+    )
     private List<Recommendation> recommendations;
 }

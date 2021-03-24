@@ -4,13 +4,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Getter @Setter
 public class AddToCollectionRequest {
 
-    @NotEmpty(message = "recommendationId must not be empty.")
+    @NotNull(message = "recommendationId must not be null.")
     private Long recommendationId;
 
-    @NotEmpty(message = "collectionId must not be empty.")
+    @NotNull(message = "collectionId must not be null.")
     private Long collectionId;
 }

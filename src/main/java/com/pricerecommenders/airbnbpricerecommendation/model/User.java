@@ -30,10 +30,10 @@ public class User extends BaseEntity{
     @Size(max = 1500)
     private String apiToken;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Recommendation> recommendations;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Collection> collections;
 
     public User(@NotBlank String fName, @NotBlank String lName, String apiToken) {

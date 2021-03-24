@@ -1,14 +1,20 @@
 package com.pricerecommenders.airbnbpricerecommendation.controllers;
 
 import com.pricerecommenders.airbnbpricerecommendation.model.Collection;
+import com.pricerecommenders.airbnbpricerecommendation.model.User;
 import com.pricerecommenders.airbnbpricerecommendation.payload.request.AddCollectionRequest;
 import com.pricerecommenders.airbnbpricerecommendation.payload.request.AddToCollectionRequest;
+import com.pricerecommenders.airbnbpricerecommendation.payload.response.CollectionResponse;
 import com.pricerecommenders.airbnbpricerecommendation.payload.response.MessageResponse;
 import com.pricerecommenders.airbnbpricerecommendation.services.CollectionService;
+import com.pricerecommenders.airbnbpricerecommendation.services.UserService;
 import io.swagger.annotations.Api;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Api(tags = "Collection Operations")
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -17,17 +23,26 @@ import javax.validation.Valid;
 public class CollectionController extends BaseController<Collection>{
 
     private final CollectionService colService;
+    private final UserService userService;
 
-    public CollectionController(CollectionService service) {
+    public CollectionController(CollectionService service, UserService userService) {
 
         super(service);
         this.colService = service;
+        this.userService = userService;
     }
 
     @GetMapping("/{id}")
     public Collection getCollection(@PathVariable("id") Long id) {
 
         return getEntity(id);
+    }
+
+    @GetMapping("/my-collections")
+    public List<CollectionResponse> getMyCollections() {
+
+        User user = userService.getCurrentUser();
+        return user.getCollections().stream().map(CollectionResponse::new).collect(Collectors.toList());
     }
 
     @PostMapping("")

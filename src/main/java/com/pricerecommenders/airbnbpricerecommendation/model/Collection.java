@@ -23,7 +23,6 @@ public class Collection extends BaseEntity {
     private User user;
 
     @ManyToMany
-    @NotEmpty
     @JoinTable(name = "collection_recommendations", joinColumns = @JoinColumn(name = "collection_id"), inverseJoinColumns = @JoinColumn(name = "recommendation_id"))
     private List<Recommendation> recommendations;
 }

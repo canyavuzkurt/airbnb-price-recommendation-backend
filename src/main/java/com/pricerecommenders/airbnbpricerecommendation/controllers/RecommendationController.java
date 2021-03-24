@@ -1,13 +1,12 @@
 package com.pricerecommenders.airbnbpricerecommendation.controllers;
 
-import com.pricerecommenders.airbnbpricerecommendation.exceptions.html.BadRequestException;
 import com.pricerecommenders.airbnbpricerecommendation.model.Recommendation;
 import com.pricerecommenders.airbnbpricerecommendation.model.User;
 import com.pricerecommenders.airbnbpricerecommendation.payload.response.MessageResponse;
+import com.pricerecommenders.airbnbpricerecommendation.payload.response.RecommendationResponse;
 import com.pricerecommenders.airbnbpricerecommendation.services.RecommendationService;
 import com.pricerecommenders.airbnbpricerecommendation.services.UserService;
 import io.swagger.annotations.Api;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -56,10 +55,11 @@ public class RecommendationController extends BaseController<Recommendation>{
     }
 
     @GetMapping("/my-history")
-    public List<Recommendation> getHistory() {
+    public List<RecommendationResponse> getHistory() {
 
         User user = userService.getCurrentUser();
-        return user.getRecommendations().stream().sorted(Comparator.comparing(Recommendation::getCreatedAt).reversed()).collect(Collectors.toList());
+        return user.getRecommendations().stream().sorted(Comparator.comparing(Recommendation::getCreatedAt).reversed()).map(
+                RecommendationResponse::new).collect(Collectors.toList());
     }
 
     @PostMapping("/add-to-history")

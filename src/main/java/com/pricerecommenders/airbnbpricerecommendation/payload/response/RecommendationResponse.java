@@ -49,7 +49,7 @@ public class RecommendationResponse {
         setLongitude(rec.getLongitude());
         setPropertyType(rec.getPropertyType());
         setRoomType(rec.getRoomType());
-        setAccomodates(rec.getAccomodates());
+        setAccomodates(rec.getAccommodates());
         setBeds(rec.getBeds());
         setAmenities(rec.getAmenities());
         setPrice(rec.getPrice());

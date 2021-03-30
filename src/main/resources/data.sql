@@ -6,3 +6,4 @@ insert into recommendations (created_at, user_id, neighbourhood, latitude) value
 insert into RECOMMENDATIONS_AMENITIES (recommendations_id, amenities) values (2, 'Wifi')
 insert into collections (created_at, name, user_id) values (current_time , 'Collection1', 1)
 insert into COLLECTION_RECOMMENDATIONS (COLLECTION_ID, RECOMMENDATION_ID) VALUES (1, 1)
+insert into COLLECTION_RECOMMENDATIONS (COLLECTION_ID, RECOMMENDATION_ID) VALUES (1, 2)

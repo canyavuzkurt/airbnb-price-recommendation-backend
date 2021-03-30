@@ -4,6 +4,7 @@ import com.pricerecommenders.airbnbpricerecommendation.controllers.Recommendatio
 import com.pricerecommenders.airbnbpricerecommendation.model.Recommendation;
 import org.springframework.data.jpa.domain.Specification;
 
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import java.util.ArrayList;
@@ -58,13 +59,13 @@ public class RecommendationSpec {
 
         return (root, query, criteriaBuilder) -> {
 
-            root.join("amenities", JoinType.INNER);
-
-            Specification<Recommendation> spec = Specification.where(null);
+//            Join<Object, Object> amenities1 = root.join("amenities", JoinType.INNER);
+//
+//            Specification<Recommendation> spec = Specification.where(null);
             List<Predicate> predicates = new ArrayList<>();
             for (String amenity : amenities) {
 
-                predicates.add(criteriaBuilder.like(root.get("amenities"), amenity));
+                predicates.add(criteriaBuilder.isMember(amenity, root.get("amenities") ));
             }
             Predicate[] p = new Predicate[amenities.size()];
             return criteriaBuilder.and(predicates.toArray(p));
@@ -134,8 +135,8 @@ public class RecommendationSpec {
             spec = spec.or(likeRoomType(filter.getRoomTypeFilter()));
 
         //TODO Amenities filter missing
-//        if (filter.getAmenitiesFilter() != null)
-//            spec = spec.or(hasAmenities(filter.getAmenitiesFilter()));
+        if (filter.getAmenitiesFilter() != null)
+            spec = spec.or(hasAmenities(filter.getAmenitiesFilter()));
 
         return spec;
     }
@@ -148,10 +149,7 @@ public class RecommendationSpec {
 
     public static Specification<Recommendation> byCollectionId(Long collectionId) {
 
-        return (root, query, criteriaBuilder) -> {
-            root.join("collections", JoinType.LEFT);
-            return criteriaBuilder.equal(root.get("collections").get("id"), collectionId);
-        };
+        return (root, query, criteriaBuilder) -> criteriaBuilder.isMember(collectionId, root.get("collections"));
     }
 
 }

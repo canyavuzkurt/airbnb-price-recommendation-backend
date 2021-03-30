@@ -6,6 +6,7 @@ import com.pricerecommenders.airbnbpricerecommendation.model.User;
 import com.pricerecommenders.airbnbpricerecommendation.payload.response.RecommendationResponse;
 import com.pricerecommenders.airbnbpricerecommendation.repos.BaseRepository;
 import com.pricerecommenders.airbnbpricerecommendation.repos.RecommendationRepo;
+import com.pricerecommenders.airbnbpricerecommendation.specifications.RecommendationSpec;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -33,9 +34,11 @@ public class RecommendationService extends BaseService<Recommendation>{
         User user = userService.getCurrentUser();
         Long id = user.getId();
 
-//        Specification<Recommendation> spec = RecommendationSpec.
+        Specification<Recommendation> spec =
+                RecommendationSpec.filter(filter)
+                .and(RecommendationSpec.byUserId(id));
 
-        return user.getRecommendations().stream()
+        return findAll(spec).stream()
                 .sorted(Comparator.comparing(Recommendation::getCreatedAt).reversed())
                 .map(RecommendationResponse::new).collect(Collectors.toList());
     }

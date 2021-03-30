@@ -6,6 +6,7 @@ import com.pricerecommenders.airbnbpricerecommendation.payload.request.AddCollec
 import com.pricerecommenders.airbnbpricerecommendation.payload.request.AddToCollectionRequest;
 import com.pricerecommenders.airbnbpricerecommendation.payload.response.CollectionResponse;
 import com.pricerecommenders.airbnbpricerecommendation.payload.response.MessageResponse;
+import com.pricerecommenders.airbnbpricerecommendation.payload.response.RecommendationResponse;
 import com.pricerecommenders.airbnbpricerecommendation.services.CollectionService;
 import com.pricerecommenders.airbnbpricerecommendation.services.UserService;
 import io.swagger.annotations.Api;
@@ -43,6 +44,12 @@ public class CollectionController extends BaseController<Collection>{
 
         User user = userService.getCurrentUser();
         return user.getCollections().stream().map(CollectionResponse::new).collect(Collectors.toList());
+    }
+
+    @GetMapping("/{id}/recommendations")
+    public List<RecommendationResponse> getRecommendationsOfCollection(@PathVariable("id") Long id, RecommendationFilter filter) {
+
+        return colService.getRecommendationsOfCollection(id, filter);
     }
 
     @PostMapping("")

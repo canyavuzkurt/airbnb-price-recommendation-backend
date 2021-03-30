@@ -58,7 +58,7 @@ public class RecommendationSpec {
 
         return (root, query, criteriaBuilder) -> {
 
-            root.join("amenities", JoinType.LEFT);
+            root.join("amenities", JoinType.INNER);
 
             Specification<Recommendation> spec = Specification.where(null);
             List<Predicate> predicates = new ArrayList<>();
@@ -66,7 +66,8 @@ public class RecommendationSpec {
 
                 predicates.add(criteriaBuilder.like(root.get("amenities"), amenity));
             }
-            return criteriaBuilder.and((Predicate[]) predicates.toArray());
+            Predicate[] p = new Predicate[amenities.size()];
+            return criteriaBuilder.and(predicates.toArray(p));
         };
     }
 
@@ -99,25 +100,58 @@ public class RecommendationSpec {
 
         Specification<Recommendation> spec = Specification.where(null);
 
-        return spec
-                .or(byAccommodates(filter.getAccommodatesFilter()))
-                .or(byInstantBookable(filter.getInstantBookableFilter()))
-                .or(byLatitude(filter.getLatitudeFilter()))
-                .or(byLongitude(filter.getLongitudeFilter()))
-                .or(byMaximumNights(filter.getMaximumNightsFilter()))
-                .or(byMinimumNights(filter.getMinimumNightsFilter()))
-                .or(byPrice(filter.getPriceFilter()))
-                .or(byPropertyType(filter.getPropertyTypeFilter()))
-                .or(likeBeds(filter.getBedsFilter()))
-                .or(likeNeighbourhood(filter.getNeighbourhoodFilter()))
-                .or(likeRoomType(filter.getRoomTypeFilter()));
+        if (filter.getAccommodatesFilter() != null)
+            spec = spec.or(byAccommodates(filter.getAccommodatesFilter()));
+
+        if (filter.getInstantBookableFilter() != null)
+            spec = spec.or(byInstantBookable(filter.getInstantBookableFilter()));
+
+        if (filter.getLatitudeFilter() != null)
+            spec = spec.or(byLatitude(filter.getLatitudeFilter()));
+
+        if (filter.getLongitudeFilter() != null)
+            spec = spec.or(byLongitude(filter.getLongitudeFilter()));
+
+        if (filter.getMaximumNightsFilter() != null)
+            spec = spec.or(byMaximumNights(filter.getMaximumNightsFilter()));
+
+        if (filter.getMinimumNightsFilter() != null)
+            spec = spec.or(byMinimumNights(filter.getMinimumNightsFilter()));
+
+        if (filter.getPriceFilter() != null)
+            spec = spec.or(byPrice(filter.getPriceFilter()));
+
+        if (filter.getPropertyTypeFilter() != null)
+            spec = spec.or(byPropertyType(filter.getPropertyTypeFilter()));
+
+        if (filter.getBedsFilter() != null)
+            spec = spec.or(likeBeds(filter.getBedsFilter()));
+
+        if (filter.getNeighbourhoodFilter() != null)
+            spec = spec.or(likeNeighbourhood(filter.getNeighbourhoodFilter()));
+
+        if (filter.getRoomTypeFilter() != null)
+            spec = spec.or(likeRoomType(filter.getRoomTypeFilter()));
+
         //TODO Amenities filter missing
+//        if (filter.getAmenitiesFilter() != null)
+//            spec = spec.or(hasAmenities(filter.getAmenitiesFilter()));
+
+        return spec;
     }
 
     public static Specification<Recommendation> byUserId(Long userId) {
 
         return (root, query, criteriaBuilder) -> criteriaBuilder
                 .equal(root.get("user").get("id"), userId);
+    }
+
+    public static Specification<Recommendation> byCollectionId(Long collectionId) {
+
+        return (root, query, criteriaBuilder) -> {
+            root.join("collections", JoinType.LEFT);
+            return criteriaBuilder.equal(root.get("collections").get("id"), collectionId);
+        };
     }
 
 }

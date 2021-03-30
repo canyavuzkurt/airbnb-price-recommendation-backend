@@ -42,4 +42,6 @@ public class RecommendationService extends BaseService<Recommendation>{
                 .sorted(Comparator.comparing(Recommendation::getCreatedAt).reversed())
                 .map(RecommendationResponse::new).collect(Collectors.toList());
     }
+
+
 }

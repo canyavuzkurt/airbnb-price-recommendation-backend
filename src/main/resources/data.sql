@@ -1,4 +1,8 @@
 insert into users (created_at, f_name, l_name, api_token) values (current_time , 'Caner', 'Tanguler', '109588342479223870141')
 insert into recommendations (created_at, user_id, neighbourhood, latitude) values (current_time, 1, 'Neighbourhood1', 8.25)
+insert into RECOMMENDATIONS_AMENITIES (recommendations_id, amenities) values (1, 'AC')
+insert into RECOMMENDATIONS_AMENITIES (recommendations_id, amenities) values (1, 'Wifi')
 insert into recommendations (created_at, user_id, neighbourhood, latitude) values (current_time, 1, 'Neighbourhood2', 10.25)
+insert into RECOMMENDATIONS_AMENITIES (recommendations_id, amenities) values (2, 'Wifi')
 insert into collections (created_at, name, user_id) values (current_time , 'Collection1', 1)
+insert into COLLECTION_RECOMMENDATIONS (COLLECTION_ID, RECOMMENDATION_ID) VALUES (1, 1)

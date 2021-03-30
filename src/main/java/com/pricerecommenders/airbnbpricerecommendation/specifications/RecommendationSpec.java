@@ -102,41 +102,41 @@ public class RecommendationSpec {
         Specification<Recommendation> spec = Specification.where(null);
 
         if (filter.getAccommodatesFilter() != null)
-            spec = spec.or(byAccommodates(filter.getAccommodatesFilter()));
+            spec = spec.and(byAccommodates(filter.getAccommodatesFilter()));
 
         if (filter.getInstantBookableFilter() != null)
-            spec = spec.or(byInstantBookable(filter.getInstantBookableFilter()));
+            spec = spec.and(byInstantBookable(filter.getInstantBookableFilter()));
 
         if (filter.getLatitudeFilter() != null)
-            spec = spec.or(byLatitude(filter.getLatitudeFilter()));
+            spec = spec.and(byLatitude(filter.getLatitudeFilter()));
 
         if (filter.getLongitudeFilter() != null)
-            spec = spec.or(byLongitude(filter.getLongitudeFilter()));
+            spec = spec.and(byLongitude(filter.getLongitudeFilter()));
 
         if (filter.getMaximumNightsFilter() != null)
-            spec = spec.or(byMaximumNights(filter.getMaximumNightsFilter()));
+            spec = spec.and(byMaximumNights(filter.getMaximumNightsFilter()));
 
         if (filter.getMinimumNightsFilter() != null)
-            spec = spec.or(byMinimumNights(filter.getMinimumNightsFilter()));
+            spec = spec.and(byMinimumNights(filter.getMinimumNightsFilter()));
 
         if (filter.getPriceFilter() != null)
-            spec = spec.or(byPrice(filter.getPriceFilter()));
+            spec = spec.and(byPrice(filter.getPriceFilter()));
 
         if (filter.getPropertyTypeFilter() != null)
-            spec = spec.or(byPropertyType(filter.getPropertyTypeFilter()));
+            spec = spec.and(byPropertyType(filter.getPropertyTypeFilter()));
 
         if (filter.getBedsFilter() != null)
-            spec = spec.or(likeBeds(filter.getBedsFilter()));
+            spec = spec.and(likeBeds(filter.getBedsFilter()));
 
         if (filter.getNeighbourhoodFilter() != null)
-            spec = spec.or(likeNeighbourhood(filter.getNeighbourhoodFilter()));
+            spec = spec.and(likeNeighbourhood(filter.getNeighbourhoodFilter()));
 
         if (filter.getRoomTypeFilter() != null)
-            spec = spec.or(likeRoomType(filter.getRoomTypeFilter()));
+            spec = spec.and(likeRoomType(filter.getRoomTypeFilter()));
 
         //TODO Amenities filter missing
         if (filter.getAmenitiesFilter() != null)
-            spec = spec.or(hasAmenities(filter.getAmenitiesFilter()));
+            spec = spec.and(hasAmenities(filter.getAmenitiesFilter()));
 
         return spec;
     }

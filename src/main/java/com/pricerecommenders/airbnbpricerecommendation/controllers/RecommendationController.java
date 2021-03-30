@@ -55,11 +55,9 @@ public class RecommendationController extends BaseController<Recommendation>{
     }
 
     @GetMapping("/my-history")
-    public List<RecommendationResponse> getHistory() {
+    public List<RecommendationResponse> getHistory(RecommendationFilter filter) {
 
-        User user = userService.getCurrentUser();
-        return user.getRecommendations().stream().sorted(Comparator.comparing(Recommendation::getCreatedAt).reversed()).map(
-                RecommendationResponse::new).collect(Collectors.toList());
+        return recService.getMyHistory(filter);
     }
 
     @PostMapping("/add-to-history")

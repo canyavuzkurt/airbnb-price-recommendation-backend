@@ -30,7 +30,7 @@ public class Recommendation extends BaseEntity {
 
     private String roomType;
 
-    private Long accomodates;
+    private Long accommodates;
 
     private Long beds;
 

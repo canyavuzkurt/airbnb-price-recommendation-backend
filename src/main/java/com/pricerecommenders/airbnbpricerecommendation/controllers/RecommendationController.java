@@ -61,6 +61,14 @@ public class RecommendationController extends BaseController<Recommendation>{
         return recService.getMyHistory(filter, search);
     }
 
+    @GetMapping("/my-history/not-in-collection")
+    public List<RecommendationResponse> getHistoryNotIncollection(RecommendationFilter filter,
+            @RequestParam(value = "search", required = false) String search,
+            @RequestParam(value = "collectionId") Long collectionId) {
+
+        return recService.getMyHistroyNotInCollection(filter, search, collectionId);
+    }
+
     @PostMapping("/add-to-history")
     public MessageResponse addToHistory(@RequestBody Recommendation recommendation) {
 

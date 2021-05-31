@@ -34,9 +34,9 @@ public class CollectionController extends BaseController<Collection>{
     }
 
     @GetMapping("/{id}")
-    public Collection getCollection(@PathVariable("id") Long id) {
+    public CollectionResponse getCollection(@PathVariable("id") Long id) {
 
-        return getEntity(id);
+        return new CollectionResponse(getEntity(id));
     }
 
     @GetMapping("/my-collections")
@@ -71,7 +71,7 @@ public class CollectionController extends BaseController<Collection>{
         return deleteEntity(id);
     }
 
-    @DeleteMapping("/{id}/history/{recommendationId}")
+    @DeleteMapping("/{id}/recommendation/{recommendationId}")
     public MessageResponse deleteRecommendationFromHistory(
             @PathVariable("id") Long id,
             @PathVariable("recommendationId") Long recId) {

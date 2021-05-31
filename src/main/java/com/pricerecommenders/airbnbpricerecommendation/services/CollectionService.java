@@ -73,6 +73,9 @@ public class CollectionService extends BaseService<Collection>{
 
         Collection col = findById(id);
         Recommendation rec = recommendationService.findById(recId);
+        rec.removeCollection(col);
         col.removeRecommendation(rec);
+        save(col);
+        recommendationService.save(rec);
     }
 }

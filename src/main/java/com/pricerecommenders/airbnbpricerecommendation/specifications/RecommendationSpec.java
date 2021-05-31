@@ -159,4 +159,9 @@ public class RecommendationSpec {
         else
             return Specification.where(null);
     }
+
+    public static Specification<Recommendation> notInCollection(Long collectionId) {
+
+        return (root, query, criteriaBuilder) -> criteriaBuilder.isNotMember(collectionId, root.get("collections"));
+    }
 }

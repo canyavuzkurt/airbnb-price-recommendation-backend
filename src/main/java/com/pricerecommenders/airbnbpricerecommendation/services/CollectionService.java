@@ -7,6 +7,7 @@ import com.pricerecommenders.airbnbpricerecommendation.model.Recommendation;
 import com.pricerecommenders.airbnbpricerecommendation.model.User;
 import com.pricerecommenders.airbnbpricerecommendation.payload.request.AddCollectionRequest;
 import com.pricerecommenders.airbnbpricerecommendation.payload.request.AddToCollectionRequest;
+import com.pricerecommenders.airbnbpricerecommendation.payload.response.MessageResponse;
 import com.pricerecommenders.airbnbpricerecommendation.payload.response.RecommendationResponse;
 import com.pricerecommenders.airbnbpricerecommendation.repos.BaseRepository;
 import com.pricerecommenders.airbnbpricerecommendation.repos.CollectionRepo;
@@ -66,5 +67,12 @@ public class CollectionService extends BaseService<Collection>{
         return recommendationService.findAll(spec).stream()
                 .sorted(Comparator.comparing(Recommendation::getCreatedAt).reversed())
                 .map(RecommendationResponse::new).collect(Collectors.toList());
+    }
+
+    public void removeFromCollection(Long id, Long recId) {
+
+        Collection col = findById(id);
+        Recommendation rec = recommendationService.findById(recId);
+        col.removeRecommendation(rec);
     }
 }

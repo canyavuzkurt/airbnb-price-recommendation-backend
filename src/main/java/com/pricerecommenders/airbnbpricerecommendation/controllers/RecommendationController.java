@@ -55,9 +55,10 @@ public class RecommendationController extends BaseController<Recommendation>{
     }
 
     @GetMapping("/my-history")
-    public List<RecommendationResponse> getHistory(RecommendationFilter filter) {
+    public List<RecommendationResponse> getHistory(RecommendationFilter filter,
+            @RequestParam(value = "search", required = false) String search) {
 
-        return recService.getMyHistory(filter);
+        return recService.getMyHistory(filter, search);
     }
 
     @PostMapping("/add-to-history")

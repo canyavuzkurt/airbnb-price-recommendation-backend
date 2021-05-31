@@ -71,6 +71,15 @@ public class CollectionController extends BaseController<Collection>{
         return deleteEntity(id);
     }
 
+    @DeleteMapping("/{id}/history/{recommendationId}")
+    public MessageResponse deleteRecommendationFromHistory(
+            @PathVariable("id") Long id,
+            @PathVariable("recommendationId") Long recId) {
+
+        colService.removeFromCollection(id, recId);
+        return new MessageResponse("Recommendation removed from the collection.");
+    }
+
     @PostMapping("/add/")
     public MessageResponse addToCollection(@Valid @RequestBody AddToCollectionRequest request) {
 

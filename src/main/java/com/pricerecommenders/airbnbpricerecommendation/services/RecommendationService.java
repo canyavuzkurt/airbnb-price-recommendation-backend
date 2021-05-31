@@ -29,16 +29,20 @@ public class RecommendationService extends BaseService<Recommendation>{
         this.userService = userService;
     }
 
-    public List<RecommendationResponse> getMyHistory(RecommendationFilter filter) {
+    public List<RecommendationResponse> getMyHistory(RecommendationFilter filter, String search) {
 
         User user = userService.getCurrentUser();
         Long id = user.getId();
 
-        Specification<Recommendation> spec =
-                RecommendationSpec.filter(filter)
-                .and(RecommendationSpec.byUserId(id));
+        Specification<Recommendation> filterSpec =
+                RecommendationSpec.filter(filter);
 
-        return findAll(spec).stream()
+        Specification<Recommendation> searchSpec =
+                RecommendationSpec.search(search);
+
+        Specification<Recommendation> finalSpec = filterSpec.and(searchSpec).and(RecommendationSpec.byUserId(id));
+
+        return findAll(finalSpec).stream()
                 .sorted(Comparator.comparing(Recommendation::getCreatedAt).reversed())
                 .map(RecommendationResponse::new).collect(Collectors.toList());
     }

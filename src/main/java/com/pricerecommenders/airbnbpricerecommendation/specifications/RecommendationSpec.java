@@ -152,4 +152,8 @@ public class RecommendationSpec {
         return (root, query, criteriaBuilder) -> criteriaBuilder.isMember(collectionId, root.get("collections"));
     }
 
+    public static Specification<Recommendation> search(String search) {
+
+        return likeNeighbourhood(search);
+    }
 }

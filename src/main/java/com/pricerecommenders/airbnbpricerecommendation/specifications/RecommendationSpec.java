@@ -154,6 +154,9 @@ public class RecommendationSpec {
 
     public static Specification<Recommendation> search(String search) {
 
-        return likeNeighbourhood(search);
+        if (search != null)
+            return likeNeighbourhood(search);
+        else
+            return Specification.where(null);
     }
 }

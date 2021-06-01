@@ -18,7 +18,6 @@ public class Recommendation extends BaseEntity {
     private User user;
 
     @ManyToMany(mappedBy = "recommendations")
-    @JsonBackReference
     private List<Collection> collections;
 
     private String neighbourhood;

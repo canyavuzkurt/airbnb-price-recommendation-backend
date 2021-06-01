@@ -25,7 +25,6 @@ public class Collection extends BaseEntity {
 
     @ManyToMany
     @JoinTable(name = "collection_recommendations", joinColumns = @JoinColumn(name = "collection_id"), inverseJoinColumns = @JoinColumn(name = "recommendation_id"))
-    @JsonManagedReference
     private List<Recommendation> recommendations;
 
     public void removeRecommendation(Recommendation rec) {

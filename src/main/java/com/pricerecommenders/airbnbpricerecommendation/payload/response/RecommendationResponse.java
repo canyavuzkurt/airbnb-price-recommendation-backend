@@ -19,6 +19,8 @@ public class RecommendationResponse {
 
     private String neighbourhood;
 
+    private String address;
+
     private Double latitude;
 
     private Double longitude;
@@ -45,6 +47,7 @@ public class RecommendationResponse {
 
         setId(rec.getId());
         setNeighbourhood(rec.getNeighbourhood());
+        setAddress(rec.getAddress());
         setLatitude(rec.getLatitude());
         setLongitude(rec.getLongitude());
         setPropertyType(rec.getPropertyType());
